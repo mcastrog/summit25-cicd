@@ -23,6 +23,11 @@
         recurse: true
       register: ls_output
 
+
+    - name: Debug found playbooks
+      ansible.builtin.debug:
+        var: ls_output.stdout_lines
+
     - name: Execute ansible-lint
       ansible.builtin.command:
         cmd: ansible-lint -p -q {{ local_clone_path }}/playbooks/{{ item }}
@@ -31,6 +36,10 @@
       changed_when: true
       loop: "{{ ls_output.stdout_lines }}"
       register: lint_result
+
+    - name: Debug found playbooks
+      ansible.builtin.debug:
+        var: ls_output.stdout_lines
 
     - name: Display ansible-lint results
       ansible.builtin.debug:
