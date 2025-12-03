@@ -27,6 +27,10 @@
         repo: "{{ source_repo_url }}"
         dest: "{{ local_clone_path }}"
 
+    - name: Debug local_clone_path
+      ansible.builtin.debug:
+        msg: "Cloned repository to {{ local_clone_path }}"
+
     - name: Include vars from directory
       ansible.builtin.include_vars:
         dir: "{{ local_clone_path }}/ansible/vars"
