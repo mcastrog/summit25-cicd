@@ -23,23 +23,22 @@
         recurse: true
       register: ls_output
 
-
     - name: Debug found playbooks
       ansible.builtin.debug:
         var: ls_output
 
     - name: Execute ansible-lint
       ansible.builtin.command:
-        cmd: ansible-lint -p -q {{ local_clone_path }}/playbooks/{{ item }}
+        cmd: ansible-lint -p -q {{ item.path }}
       ignore_errors: true
       check_mode: false
       changed_when: true
-      loop: "{{ ls_output.stdout_lines }}"
+      loop: "{{ ls_output.files }}"
       register: lint_result
 
     - name: Debug found playbooks
       ansible.builtin.debug:
-        var: ls_output.stdout_lines
+        var: ls_output
 
     - name: Display ansible-lint results
       ansible.builtin.debug:
