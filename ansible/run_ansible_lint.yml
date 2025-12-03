@@ -16,6 +16,11 @@
         force: true
       register: git_clone
 
+    - name: Find all Ansible playbooks
+      ansible.builtin.command:
+        cmd: find {{ local_clone_path }}/playbooks -name "*.yml" -o -name "*.yaml"
+      register: ls_output
+
     - name: Execute ansible-lint
       ansible.builtin.command:
         cmd: ansible-lint -p -q {{ local_clone_path }}/playbooks/{{ item }}
