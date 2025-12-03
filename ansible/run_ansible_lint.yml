@@ -17,8 +17,10 @@
       register: git_clone
 
     - name: Find all Ansible playbooks
-      ansible.builtin.command:
-        cmd: find {{ local_clone_path }}/playbooks -name "*.yml" -o -name "*.yaml"
+      ansible.builtin.find:
+        paths: "{{ local_clone_path }}/playbooks"
+        patterns: "*.yml"
+        recurse: true
       register: ls_output
 
     - name: Execute ansible-lint
