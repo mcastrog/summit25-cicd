@@ -29,7 +29,7 @@
 
     - name: Execute ansible-lint
       ansible.builtin.command:
-        cmd: ansible-lint -p -q {{ item.path }} --no-color
+        cmd: ansible-lint -p -q {{ item.path }} --nocolor
       ignore_errors: true
       check_mode: false
       changed_when: true
